@@ -1,1 +1,3 @@
 # Smart_Litter_Box
+Kami Tim 173_Forever1 berasal dari SMK Negeri 1 Kayuagung Provinsi Sumatera Selatan, Peserta Samsung Innovation Campus Batch 4 Tahun 2022/2023. 
+Alat yang kami buat dilengkapi dengan 2 sensor ultrasonik untuk mendeteksi objek (manusia yg ingin buang sampah) dan mengukur volume ketinggian kotak sampah. Jika Sensor mendeteksi objek maka motor servo akan bergerak untuk membuka tutup kotak sampah secara otomatis. Volume ketinggian kotak sampah juga dapat dimonitoring secara online menggunakan website (Ubidots) sehingga diharapkan petugas kebersihan dapat mengetahui kapasitas isi kotak sampah dari jarak jauh secara real time sehingga tidak perlu repot untuk mengecek volume ketinggian kotak sampah secara langsung.
