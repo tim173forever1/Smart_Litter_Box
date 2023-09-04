@@ -1,8 +1,8 @@
+import RPi.GPIO as GPIO
 import time
 import requests
 import math
 import random
-import RPi.GPIO as GPIO
 
 TOKEN = "BBFF-mPzQWh9K7fbaKlvnFmnGWYvSNPQ2wX"  # Put your TOKEN here
 DEVICE_LABEL = "smarth_litter_box"  # Put your device label here 
@@ -13,7 +13,7 @@ VARIABLE_LABEL_3 = "Distance3"  # Put your third variable label here
 GPIO.setwarnings(False)
 print ("TIM173_FOREVER1 - SMART LITTER BOX")
 print ("SMK NEGERI 1 KAYUAGUNG")
-print("")
+print ("")
  
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
@@ -42,8 +42,7 @@ GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
 GPIO.setup(GPIO_ECHO2, GPIO.IN)
 GPIO.setup(LED_MERAH, GPIO.OUT)
 GPIO.setup(LED_HIJAU, GPIO.OUT)
-
-
+ 
 def distance1():
     # set Trigger to HIGH
     GPIO.output(GPIO_TRIGGER1, True)
@@ -100,8 +99,8 @@ def distance2():
 
 def build_payload(variable_1, variable_2, variable_3):
 #### distance1###############
-    lat = -6.4124
-    long = 102.412412
+    lat = -3.393900
+    long = 104.840313
     jarak1 = distance1()
     jarak2 = distance2()
     # Creates two random values for sending data
@@ -114,7 +113,6 @@ def build_payload(variable_1, variable_2, variable_3):
                variable_3: {"value": 1, "context": {"lat": lat, "lng": long}}}
 
     return payload
-
 
 def post_request(payload):
     # Creates the headers for the HTTP requests
@@ -141,7 +139,6 @@ def post_request(payload):
     print("[INFO] request made properly, your device is updated")
     return True
 
-
 def main():
     payload = build_payload(
         VARIABLE_LABEL_1, VARIABLE_LABEL_2, VARIABLE_LABEL_3)
@@ -149,12 +146,12 @@ def main():
     print("[INFO] Attemping to send data")
     post_request(payload)
     print("[INFO] finished")
-
+ 
 if __name__ == '__main__':
     try:
         while True:
-            latitude = -6.4124
-            longitude = 102.412412
+            latitude = -3.393900
+            longitude = 104.840313
             volume = distance1()
             jarak = distance2()
             print ("Volume Sampah = %.1f cm" % volume)
@@ -162,19 +159,19 @@ if __name__ == '__main__':
             time.sleep(1)
             
             #Pengkuran Jarak untuk Membuang Sampah
-            if (jarak < 30 and jarak > 1):
-		if volume > 5:
-		    servo1.ChangeDutyCycle(7)
-                    time.sleep(2)
-                    servo1.ChangeDutyCycle(2.7)
+            if (jarak <= 30 and jarak > 1 ):
+                if volume > 5:                   
+                    servo1.ChangeDutyCycle(7)
+                    time.sleep(5)
+                    servo1.ChangeDutyCycle(1)
                     time.sleep(1)
-            	elif volume > 5 and volume > 1:
+                elif volume <5 and volume > 1:
                     servo1.ChangeDutyCycle(0)
             else :
                 servo1.ChangeDutyCycle(0)
                 
             #Pengukuran Jarak Volume Sampah Sudah Penuh atau Belum
-            if volume < 5 and volume > 1:
+            if volume <= 5 and volume > 1:
                 GPIO.output(LED_MERAH, GPIO.HIGH)
                 time.sleep(1)
                 GPIO.output(LED_HIJAU, GPIO.LOW)
